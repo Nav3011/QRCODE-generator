@@ -30,3 +30,25 @@ poly4 = polynomialMultiplication(poly3, {1: 0, 0: 2})
 # print(poly4)
 # 
 # print(galoisFieldValueInverse(galoisFieldValue(257))) 
+
+def generatorPolynomial(n):
+    # n is the count of number of error correction words
+    # if n = 3
+    # multiplication_count = 2 (x1.α0 - x0.α0)(x1.α0 - x0.α1) and (resultant_polynomial)(x1.α0 - x0.α2)
+    
+    # 1.generate 2 error correction code words
+
+    polynomialMultiplyCount = 1
+
+    poly1 = {1 : 0 , 0 : 0}
+    poly2 = {1 : 0 , 0 : 1}
+    result = polynomialMultiplication(poly1, poly2)
+    while polynomialMultiplyCount < n - 1:
+        polynomialMultiplyCount += 1
+        # get the multiplier for the next round i.e. with count n
+        polynomial = {1: 0, 0: polynomialMultiplyCount}
+        result = polynomialMultiplication(result, polynomial)
+    return result
+
+
+print(generatorPolynomial(10))
